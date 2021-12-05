@@ -1,5 +1,3 @@
-oxygen = 0
-co2 = 0
 numLength = 12
 
 with open("input.txt") as file:
