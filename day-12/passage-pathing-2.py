@@ -10,22 +10,28 @@ class Node:
         return f"Node {self.id}: {neighbors}"
 
 # returns number of paths to end
-def DFS(start: "Node", visited: "set[Node]") -> int:
+def DFS(start: "Node", visited: "set[Node]", specialSmall: "Node" = None) -> int:
     if start.id == "end":
         return 1
 
     # add to visited if small cave
     if start.id.islower():
-        visited.add(start)
+        if start in visited:
+            specialSmall = start
+        else:
+            visited.add(start)
 
     paths = 0
     for neighbor in start.next:
-        if neighbor not in visited:
-            paths += DFS(neighbor, visited)
+        if neighbor not in visited or specialSmall is None and neighbor.id != "start":
+            paths += DFS(neighbor, visited, specialSmall)
 
     # remove from visited
     # discard only removes if present
-    visited.discard(start)
+    if specialSmall == start:
+        specialSmall = None
+    else:
+        visited.discard(start)
 
     return paths
 
