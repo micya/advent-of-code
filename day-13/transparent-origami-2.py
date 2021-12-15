@@ -38,8 +38,8 @@ class Paper:
     def __str__(self) -> str:
         output = ""
 
-        for i in range(self.x):
-            for j in range(self.y):
+        for j in range(self.y):
+            for i in range(self.x):
                 output += "#" if self.grid[i][j] else "."
             output += "\n"
 
